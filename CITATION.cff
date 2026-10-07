@@ -1,0 +1,29 @@
+# This CITATION.cff file describes how to cite this software.
+# GitHub shows a "Cite this repository" button once this file is present.
+#
+# TODO after the first Zenodo release:
+#   - set `version` to the released version (e.g. "1.0")
+#   - set `date-released` to that release's date (YYYY-MM-DD)
+#   - uncomment and fill in `doi` with the DOI Zenodo mints for the release
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "flut-reader"
+abstract: >-
+  A C++ library for flamelet look-up tables (FLUTs): normalized,
+  N-dimensional lookup with shared-memory usage, used by OxySim-129.
+license: GPL-3.0
+repository-code: "https://github.com/STFS-TUDa/flut-reader"
+url: "https://github.com/STFS-TUDa/flut-reader"
+# doi: "10.5281/zenodo.XXXXXXX"
+authors:
+  - family-names: Steinhausen
+    given-names: Matthias
+    affiliation: "Institute for Simulation of reactive Thermo-Fluid Systems (STFS), TU Darmstadt"
+  - family-names: Steffens
+    given-names: Pascal
+    email: steffens@stfs.tu-darmstadt.de
+    affiliation: "Institute for Simulation of reactive Thermo-Fluid Systems (STFS), TU Darmstadt"
+  - family-names: Hasse
+    given-names: Christian
+    affiliation: "Institute for Simulation of reactive Thermo-Fluid Systems (STFS), TU Darmstadt"

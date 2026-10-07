@@ -1,0 +1,39 @@
+{
+    "cmake.cmakePath": "/cluster/tools/cmake/3.28.0/bin/cmake",
+    "cmake.environment": {
+        "PATH": "/cluster/libraries/hdf5/install/bin:${env:PATH}",
+        "CPATH": "/cluster/libraries/hdf5/install/include:/cluster/compilers/gcc/10.2.0/include:${env:CPATH}",
+        "LIBRARY_PATH": "/cluster/libraries/hdf5/install/lib:/cluster/compilers/gcc/10.2.0/lib64:${env:LIBRARY_PATH}",
+        "LD_LIBRARY_PATH": "/cluster/libraries/hdf5/install/lib:/cluster/compilers/gcc/10.2.0/lib64:${env:LD_LIBRARY_PATH}",
+        "HDF5_ROOT": "/cluster/libraries/hdf5/install"
+    },
+    "cmake.preferredGenerators": ["Unix Makefiles"],
+    "cmake.configureSettings": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_WITH_TESTING": "ON",
+        "CMAKE_C_COMPILER": "/cluster/compilers/gcc/10.2.0/bin/gcc",
+        "CMAKE_CXX_COMPILER": "/cluster/compilers/gcc/10.2.0/bin/g++"
+    },
+    "cmake.debugConfig": {
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/bin/gdb",  // Adjust if your gdb is in a different location
+        "setupCommands": [
+            {
+                "description": "Test",
+                "text": "python import sys;sys.path.insert(0, '/cluster/compilers/gcc/10.2.0/share/gcc-10.2.0/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+                "ignoreFailures": false
+            },
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+                ]
+    },
+    "files.associations": {
+        "variant": "cpp",
+        "*.tcc": "cpp",
+        "string": "cpp",
+        "stdexcept": "cpp"
+    },
+}

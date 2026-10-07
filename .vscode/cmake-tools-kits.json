@@ -1,0 +1,10 @@
+[
+    {
+      "name": "GCC 10.2.0",
+      "compilers": {
+        "C": "/cluster/compilers/gcc/10.2.0/bin/gcc",
+        "CXX": "/cluster/compilers/gcc/10.2.0/bin/g++"
+      },
+      "isTrusted": true
+    }
+  ]

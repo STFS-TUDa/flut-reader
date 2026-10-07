@@ -1,0 +1,4 @@
+Checks:          'performance-*, readability-*, misc-unused-*, misc-const-correctness, cppcoreguidelines-pro-type-*, -cppcoreguidelines-pro-type-vararg'
+FormatStyle:     file
+UseColor: true
+WarningsAsErrors: '*'

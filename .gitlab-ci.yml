@@ -1,0 +1,116 @@
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/C++.gitlab-ci.yml
+
+stages:
+  - build
+  - test
+
+#
+# Define global variables and settings
+#
+default:
+  tags:
+    - cluster
+
+before_script:
+  - module load gcc/13.4.0
+  - module load openmpi/4.1.7
+  - module load cmake/3.31.9
+  - module load hdf5/1.14.5
+
+variables:
+  GIT_STRATEGY: none # Enable git fetching in the .pre job (first one called)
+
+# Define rules for the entire workflow
+workflow:
+  rules:
+    # Enable testing on merge-requests
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_BRANCH == "main"'
+
+#
+# Define pipeline stages
+# 
+syntax:
+  stage: .pre
+  variables:
+    GIT_STRATEGY: clone
+  before_script:
+    - ml miniforge3
+    # initialize conda for non-interactive bash
+    - export CONDA_BASE="$(conda info --base)"
+    - source "$CONDA_BASE/etc/profile.d/conda.sh"
+    # create env if missing (runner’s home, not yours)
+    - if ! conda env list | awk '{print $1}' | grep -qx "clang-format.18.1.1"; then
+        conda create -y -n clang-format.18.1.1 -c conda-forge clang-format=18.1.1;
+      fi
+    - conda run -n clang-format.18.1.1 --no-capture-output clang-format --version
+    - shopt -s globstar nullglob
+  script:
+    - conda run -n clang-format.18.1.1 --no-capture-output clang-format --dry-run --Werror src/**/*.{cpp,hpp} test/**/*.{cpp,hpp}
+
+
+
+# Add this?
+#clang_tidy:
+#  stage: test
+#  needs: ["build"] # we need this for the compile_commands.json file
+#  script:
+#    - run-clang-tidy-16 -p build src/*
+
+build:
+  stage: build
+  cache:
+    paths:
+      - build/_deps
+  needs: [ "syntax" ]
+  script:
+    - cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_WITH_TESTING=ON # this doesn't work via the CMakeList config for some reason
+    - make -C build -j
+  artifacts:
+    # This makes the "build/" folder available in later tests (because different jobs only share the git checkout by default)
+    paths:
+      - build/
+
+build_release:
+  stage: build
+  needs: [ "syntax" ]
+
+  cache:
+    key: "release-deps-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - release/_deps
+
+  script:
+    # Remove path-sensitive CMake subbuild caches restored from GitLab cache
+    - rm -rf release/_deps/*-subbuild release/_deps/*-subbuild/CMakeCache.txt release/CMakeCache.txt release/CMakeFiles
+
+    # Configure + build
+    - cmake -S . -B release -DCMAKE_BUILD_TYPE=Release -DBUILD_WITH_TESTING=ON
+    - cmake --build release -j
+
+  artifacts:
+    paths:
+      - release/
+
+# run tests using the binary built before
+test:
+  stage: test
+  # We need the build stage to be completed before we can run tests, because we need its artifacts (build/)
+  needs: [ "build" ]
+  script:
+    - cd build
+    - ctest --output-on-failure
+  artifacts:
+    reports:
+      junit: build/test/test-results-*.xml
+
+benchmark:
+  stage: test
+  needs: [ "build_release" ]
+  script:
+    # Python on the cluster is 3.6, so it doesn't have dataclasses yet, so we have to spin up a venv
+    # and install the backport
+    - ./build/test/benchmark_interpolate --benchmark-samples 500
+    - ./build/test/benchmark_lookup_table --benchmark-samples 500
