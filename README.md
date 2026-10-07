@@ -190,6 +190,7 @@ A list of functions and short explanations that are implemented in the LookupTab
 - getNormEntryAtIndex
     - retrieves the interval on which a value should be normalized, based on the previously calculated indices
 
-## Developers
-Informatics project: Adrian Schmidt, Berkehan Atikeler, Florian Magin, Gregor Carmesin, Sargon Malko
-STFS improvements: Matthias Steinhausen
+## Developers & Contact
+The code is based on a student computer science project at TU Darmstadt by Adrian Schmidt, Berkehan Atikeler, Florian Magin, Gregor Carmesin, Sargon Malko.
+
+The project was supervised by Matthias Steinhausen who further refactored and optimized the code. More recent modifications were made by Philipp Koob and Pascal Steffens. For questions or bugs please either open an issue or write to steffens@stfs.tu-darmstadt.de.
