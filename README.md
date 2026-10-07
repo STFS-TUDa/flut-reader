@@ -153,14 +153,18 @@ The `DataSharedMemory` defined in `src/containers.*` implements shared memory ha
 FLUT receives physical input quantities from an external software and calls the table implementation that is hardcoded into the code. The physical quantities that belong to a normalized input variable in the data table are normalized and the rest are passed as it is to the next step. Inside the hypercube construction values that surround the normalized quantities are selected from the data table and passed into interpolation. During the interpolation step a multivariate linear interpolation is applied to the points of the hypercube. The result of the interpolation is passed back to the external software.
 
 <div align=center>
+    
 ![Data Flow](doc/images/data_flow.png)
+
 </div>
 
 ## Function Call Graph
 The call graph below shows the function call hierarchy and amounts for Hdf5TableMemOpt. The graph is read using a depth first approach left to right and top to bottom. d is the amount of input dimensions.
 
 <div align=center>
+    
 ![Hdf5TableMemOpt Function Call Graph](doc/images/call_graph.png)
+
 </div>
 
 ## Functions
