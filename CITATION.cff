@@ -24,6 +24,9 @@ authors:
     given-names: Pascal
     email: steffens@stfs.tu-darmstadt.de
     affiliation: "Institute for Simulation of reactive Thermo-Fluid Systems (STFS), TU Darmstadt"
+  - family-names: Koob
+    given-names: Philipp
+    affiliation: "Institute for Simulation of reactive Thermo-Fluid Systems (STFS), TU Darmstadt"
   - family-names: Hasse
     given-names: Christian
     affiliation: "Institute for Simulation of reactive Thermo-Fluid Systems (STFS), TU Darmstadt"
