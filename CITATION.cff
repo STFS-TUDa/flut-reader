@@ -15,7 +15,8 @@ abstract: >-
 license: GPL-3.0
 repository-code: "https://github.com/STFS-TUDa/flut-reader"
 url: "https://github.com/STFS-TUDa/flut-reader"
-# doi: "10.5281/zenodo.XXXXXXX"
+doi: "10.5281/zenodo.23238258"
+date-released: "2026-10-08"
 authors:
   - family-names: Steinhausen
     given-names: Matthias

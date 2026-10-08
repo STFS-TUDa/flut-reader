@@ -1,3 +1,7 @@
+# flut-reader
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23238258.svg)](https://doi.org/10.5281/zenodo.23238258)
+
 ## Description
 This C++ library is used for LUT (Look-Up Tables).  
 It implements a lookup for normalized LUT with shared memory usage.
@@ -194,3 +198,7 @@ A list of functions and short explanations that are implemented in the LookupTab
 The code is based on a student computer science project at TU Darmstadt by Adrian Schmidt, Berkehan Atikeler, Florian Magin, Gregor Carmesin, Sargon Malko.
 
 The project was supervised by Matthias Steinhausen who further refactored and optimized the code. More recent modifications were made by Philipp Koob and Pascal Steffens. For questions or bugs please either open an issue or write to steffens@stfs.tu-darmstadt.de.
+
+## How to cite
+
+If you use this software, please cite it using the metadata in [`CITATION.cff`](CITATION.cff), or click "Cite this repository" in the GitHub sidebar. A DOI for citing a specific version is also available: [10.5281/zenodo.23238258](https://doi.org/10.5281/zenodo.23238258).
